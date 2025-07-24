@@ -8,6 +8,12 @@
   </title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&amp;display=swap" rel="stylesheet"/>
   <style>
+  /* Modal içerikleri */
+.modal-content {
+  width: 90%;
+  max-width: 400px;
+  margin: auto;
+}
   .uyari-box.success {
   background-color: #2ecc71;
   color: #fff;
@@ -269,6 +275,29 @@
     .notification.error {
       background-color: #e74c3c;
     }
+    .auth-btn,
+.admin-btn {
+  width: auto;
+  padding: 10px 15px;
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .auth-btn,
+  .admin-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+}
+@media (max-width: 768px) {
+  .modal-content.styled-modal {
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 20px;
+  }
+}
   </style>
 
  </head>
@@ -519,8 +548,8 @@
     <input type="password" id="adminSifre" />
     <button onclick="adminGirisYap()">Giriş Yap</button>
   </div>
-    </div>
-  <!-- JS KODLARI -->
+</div>
+<!-- JS KODLARI -->
 <script>
 // Modal Aç/Kapat
 function openModal(id) {
@@ -703,155 +732,4 @@ function sepetiBosalt() {
 function guncelleSepet() {
   const cartList = document.getElementById("cartList");
   const toplamTutarEl = document.getElementById("toplamTutar");
-  cartList.innerHTML = "";
-
-  let toplam = 0;
-  sepet.forEach((item, index) => {
-    const li = document.createElement("li");
-    li.innerHTML = `
-      <div style="display: flex; justify-content: space-between; align-items: center;">
-        <span>${item.urunAdi} - ₺${item.fiyat}</span>
-        <button onclick="urunSil(${index})" style="background: transparent; border: 1px solid #e74c3c; color: #e74c3c; border-radius: 6px; padding: 3px 10px; cursor: pointer;">×</button>
-      </div>`;
-    cartList.appendChild(li);
-    toplam += item.fiyat;
-  });
-
-  toplamTutarEl.textContent = `Toplam: ₺${toplam}`;
-}
-
-// Sayfa Yüklendiğinde Sepeti Yükle
-window.addEventListener("load", () => {
-  const kayitli = JSON.parse(localStorage.getItem("sepet"));
-  if (kayitli) {
-    sepet = kayitli;
-    guncelleSepet();
-  }
-});<!-- EmailJS başlatma -->
-
-  (function () {
-    emailjs.init("8sUAD6FBekpFKIO0K"); // kendi User ID'n
-  })();
-
-  // 🔐 Doğrulama kodu gönderme
-  function dogrulamaGonder() {
-    const email = document.getElementById("kayitEmail").value.trim();
-    if (!email) {
-      alanUyariGoster("❌ Email alanı boş bırakılamaz.");
-      return;
-    }
-
-    // 6 haneli rastgele doğrulama kodu
-    const dogrulamaKodu = Math.floor(100000 + Math.random() * 900000);
-    document.getElementById("dogrulamaKodu").value = dogrulamaKodu;
-
-    const params = {
-      to_email: email,
-      kod: dogrulamaKodu
-    };
-
-    // EmailJS ile gönder
-    emailjs.send("service_pfhur4s", "template_hizliepinn", params)
-      .then(() => {
-        document.getElementById("epostaOnayMesaji").style.display = "inline";
-        alanUyariGoster("✅ Doğrulama kodu e-posta ile gönderildi.");
-      })
-      .catch(error => {
-        console.error("Hata:", error);
-        alanUyariGoster("❌ E-posta gönderilemedi.");
-      });
-  }
-
-// 🎯 Alanlara input eventi ekle
-  const alanlar = ["kayitAdSoyad", "kayitEmail", "kayitKullanici", "kayitSifre"];
-  alanlar.forEach(id => {
-    document.getElementById(id).addEventListener("input", alanKontrolEt);
-  });
-
-  function alanKontrolEt() {
-    const ad = document.getElementById("kayitAdSoyad").value.trim();
-    const email = document.getElementById("kayitEmail").value.trim();
-    const kullanici = document.getElementById("kayitKullanici").value.trim();
-    const sifre = document.getElementById("kayitSifre").value.trim();
-    const buton = document.getElementById("dogrulamaBtn");
-
-    // Hepsi doluysa buton görünür
-    if (ad && email && kullanici && sifre) {
-      buton.style.display = "inline-block";
-    } else {
-      buton.style.display = "none";
-    }
-  }
-  // 🟩 Uyarı kutusu fonksiyonu
-  function alanUyariGoster(mesaj) {
-    const box = document.getElementById("uyariBox");
-    const text = document.getElementById("uyariMetni");
-    text.textContent = mesaj;
-    box.style.display = "block";
-    setTimeout(() => {
-      box.style.opacity = "0";
-      setTimeout(() => {
-        box.style.display = "none";
-        box.style.opacity = "1";
-      }, 400);
-    }, 2500);
-  }
-  
-  // 🌟 Genel Uyarı Gösterme Fonksiyonu
-function gosterUyari(mesaj, tip = "error") {
-  const box = document.getElementById("uyariBox");
-  const metin = document.getElementById("uyariMetni");
-  
-  box.classList.remove("success");
-  if (tip === "success") box.classList.add("success");
-  
-  metin.textContent = mesaj;
-  box.style.display = "block";
-  
-  setTimeout(() => {
-    box.style.opacity = "0";
-    setTimeout(() => {
-      box.style.display = "none";
-      box.style.opacity = "1";
-      box.classList.remove("success");
-    }, 500);
-  }, 2500);
-}
-  
-
-</script>
-
-
-<!-- Diğer kodların en altı -->
-  
-  <!-- EmailJS dogrulama script'i -->
-  <script type="module">
-    import emailjs from 'https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js';
-
-    emailjs.init("8sUAD6FBekpFKIO0K");
-
-    document.getElementById("dogrulamaBtn").addEventListener("click", function () {
-      const email = document.getElementById("kayitEmail").value.trim();
-      const kod = Math.floor(100000 + Math.random() * 900000);
-      document.getElementById("dogrulamaKodu").value = kod;
-
-      const params = {
-        to_email: email,
-        kod: kod
-      };
-
-      emailjs.send("service_pfhur4s", "template_hizliepinn", params)
-        .then(() => {
-          document.getElementById("epostaOnayMesaji").style.display = "inline";
-          alert("✅ Doğrulama kodu gönderildi.");
-        })
-        .catch((error) => {
-          console.error("Hata:", error);
-          alert("❌ Kod gönderilemedi.");
-        });
-    });
-  </script>
-  
-</body>
-</html>
-    
+  cartList.i
