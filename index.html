@@ -441,7 +441,7 @@
         <button class="auth-btn" style="background-color: gray; color: white;" onclick="closeModal(this)">Vazgeç</button>
       </div>
     </div>
-  <!-- JS KODLARI -->
+<!-- JS KODLARI -->
 <script>
 // ✅ GLOBALE
 let sepet = [];
@@ -645,72 +645,4 @@ function urunGuncelle() {
   localStorage.setItem("urunler", JSON.stringify(urunler));
   gosterUyari("✏️ Ürün güncellendi!", "success");
 
-  document.getElementById("guncelleEski").value = "";
-  document.getElementById("guncelleYeni").value = "";
-  document.getElementById("guncelleFiyat").value = "";
-}
-
-// ✅ SEPET
-function sepeteEkle(ad, fiyat) {
-  sepet.push({ ad, fiyat });
-  localStorage.setItem("sepet", JSON.stringify(sepet));
-  gosterUyari(`${ad} sepete eklendi.`, "success");
-  guncelleSepet();
-}
-function urunSil(index) {
-  sepet.splice(index, 1);
-  localStorage.setItem("sepet", JSON.stringify(sepet));
-  guncelleSepet();
-}
-function sepetiBosalt() {
-  sepet = [];
-  localStorage.removeItem("sepet");
-  guncelleSepet();
-  gosterUyari("Sepet boşaltıldı.");
-}
-function guncelleSepet() {
-  const liste = document.getElementById("cartList");
-  const toplam = document.getElementById("toplamTutar");
-  liste.innerHTML = "";
-  let tutar = 0;
-
-  sepet.forEach((item, i) => {
-    const li = document.createElement("li");
-    li.innerHTML = `
-      <div style="display:flex; justify-content:space-between;">
-        <span>${item.ad} - ₺${item.fiyat}</span>
-        <button onclick="urunSil(${i})" style="border:1px solid red;">×</button>
-      </div>`;
-    liste.appendChild(li);
-    tutar += item.fiyat;
-  });
-  toplam.textContent = `Toplam: ₺${tutar}`;
-}
-
-// ✅ HESABIM / ADMIN MENÜ AÇ/KAPA
-function toggleAdminMenu() {
-  const menu = document.getElementById("adminMenuDropdown");
-  menu.style.display = menu.style.display === "block" ? "none" : "block";
-}
-function toggleHesabimMenu() {
-  const menu = document.getElementById("hesabimDropdown");
-  menu.style.display = menu.style.display === "block" ? "none" : "block";
-}
-
-// ✅ SAYFA YÜKLENİNCE
-window.addEventListener("load", () => {
-  sepet = JSON.parse(localStorage.getItem("sepet")) || [];
-  guncelleSepet();
-
-  if (localStorage.getItem("adminGiris") === "true") {
-    document.getElementById("adminMenuContainer").style.display = "block";
-  }
-
-  if (localStorage.getItem("girisYapildi") === "true") {
-    document.getElementById("hesabimContainer").style.display = "block";
-  }
-});
-</script>
-  
-</body>
-</html>
+  document.getElementById("guncelleEs
