@@ -5,724 +5,1565 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>EPIN</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+    
     <style>
-      body {
-        margin: 0;
-        font-family: 'Poppins', sans-serif;
-        background-color: #121212;
-        color: #fff;
-      }
-      .navbar {
-        background-color: #1e1e1e;
-        padding: 12px 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-      }
-      .navbar .logo {
-        font-size: 24px;
-        font-weight: bold;
-        color: #4fa3ff;
-      }
-      .navbar .nav-right {
-        display: flex;
-        gap: 10px;
-      }
-      .navbar input[type="text"] {
-        padding: 8px;
-        border: none;
-        border-radius: 6px;
-        width: 200px;
-      }
-      .dropdown-nav {
-        background-color: #191919;
-        padding: 10px 20px;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 15px;
-      }
-      .dropdown-nav a {
-        color: #ccc;
-        text-decoration: none;
-        font-weight: 500;
-      }
-      .dropdown-nav a:hover {
-        color: #fff;
-      }
-      .auth-btn {
-        background: white;
-        color: black;
-        font-weight: bold;
-        border: none;
-        padding: 10px 15px;
-        border-radius: 12px;
-        cursor: pointer;
-      }
-      .auth-btn:hover {
-        background-color: #f0f0f0;
-      }
-      .admin-btn {
-        background-color: #2c3e50;
-        color: #fff;
-        border: none;
-        padding: 10px 14px;
-        border-radius: 8px;
-        margin-left: 10px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-      }
-      .admin-btn:hover {
-        background-color: #34495e;
-      }
-      .product-list {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 20px;
-        justify-content: center;
-        padding: 30px 10px;
-      }
-      .product {
-        background: #1f1f1f;
-        border: 1px solid #333;
-        border-radius: 10px;
-        padding: 20px;
-        width: 250px;
-        text-align: center;
-      }
-      .product h3 {
-        margin-top: 0;
-      }
-      .product .price {
-        font-size: 18px;
-        color: #f39c12;
-        margin: 10px 0;
-      }
-      .modal {
-        display: none;
-        position: fixed;
-        z-index: 1000;
-        left: 0; top: 0;
-        width: 100%; height: 100%;
-        background-color: rgba(0,0,0,0.7);
-        justify-content: center;
-        align-items: center;
-      }
-      .modal-content {
-        background: #1e1e1e;
-        padding: 25px;
-        border-radius: 10px;
-        width: 90%;
-        max-width: 400px;
-        color: white;
-        position: relative;
-      }
-      .modal-content h2 {
-        margin-top: 0;
-        color: #4fa3ff;
-      }
-      .modal-content label {
-        display: block;
-        margin-top: 10px;
-      }
-      .modal-content input {
-        width: 100%;
-        box-sizing: border-box;
-        padding: 8px;
-        border-radius: 5px;
-        border: none;
-        margin-top: 5px;
-      }
-      .modal-content button.auth-btn {
-        margin-top: 20px;
-        width: 100%;
-        display: block;
-      }
-      .close-btn {
-        font-size: 30px;
-        font-weight: bold;
-        cursor: pointer;
-        border: none;
-        background: none;
-        color: white;
-        position: absolute;
-        top: 10px;
-        right: 15px;
-        z-index: 10;
-      }
-      .close-btn:hover {
-        color: #f39c12;
-      }
-      .notification {
-        position: fixed;
-        top: 70px;
-        left: 50%;
-        transform: translateX(-50%);
-        background-color: #2ecc71;
-        color: white;
-        padding: 12px 20px;
-        border-radius: 10px;
-        font-size: 14px;
-        z-index: 9999;
-        opacity: 1;
-        transition: opacity 0.5s ease;
-      }
-      .notification.error {
-        background-color: #e74c3c;
-      }
-      .uyari-box {
-        animation: slideDown 0.5s ease;
-        background-color: #e74c3c;
-        color: white;
-        padding: 10px;
-        position: fixed;
-        top: 15px;
-        left: 50%;
-        transform: translateX(-50%);
-        border-radius: 10px;
-        z-index: 9999;
-        transition: all 0.4s ease;
-      }
-      .uyari-box.success {
-        background-color: #2ecc71;
-        color: #fff;
-      }
-      @keyframes slideDown {
-        from { opacity: 0; transform: translate(-50%, -20px); }
-        to { opacity: 1; transform: translate(-50%, 0); }
-      }
-      @keyframes fadeOut {
-        to { opacity: 0; transform: translate(-50%, -20px); }
-      }
-      @media (max-width: 768px) {
-        .auth-btn,
-        .admin-btn {
-          width: 100%;
-          padding: 12px;
-          font-size: 16px;
-          margin-bottom: 10px;
-        }
-        .modal-content {
-          max-height: 90vh;
-          overflow-y: auto;
-          padding: 20px;
-        }
-      }
-      </style>
-  </head>
-  <body>
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <!-- UYARI KUTUSU -->
-    <div id="uyariBox" class="uyari-box" style="display: none;">
-      ⚠️ <span id="uyariMetni">Uyarı mesajı</span>
-    </div>
+/* =============================
+   GLOBAL & RESET
+   ============================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-    <div class="navbar">
-      <div class="logo">EPIN</div>
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: #121212;
+  color: #fff;
+  line-height: 1.6;
+}
 
-      <input type="text" placeholder="Arama yap..." />
+a {
+  text-decoration: none;
+  color: inherit;
+}
 
-      <div class="nav-right">
-        <button class="auth-btn" onclick="openModal('registerModal')">Kayıt Ol</button>
-        <button class="auth-btn" onclick="openModal('loginModal')">Giriş Yap</button>
-        <button class="auth-btn" onclick="openModal('cartModal')">🛒 Sepet</button>
-        <button class="admin-btn" onclick="openModal('adminGirisModal')">Admin</button>
-      </div>
-    </div>
+ul, li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 
-    <div class="dropdown-nav">
-      <a href="#">Knight Online</a>
-      <a href="#">Rise Online</a>
-      <a href="#">Oyunlar</a>
-      <a href="#">Fırsatlar</a>
-      <a href="#">Oyuncu Pazarı</a>
-      <a href="#">Tüm Ürünler</a>
-    </div>
+/* =============================
+   NAVBAR
+   ============================= */
+.navbar {
+  background-color: #1e1e1e;
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 2px solid #00aaff;
+}
 
-    <div class="product-list">
-      <div class="product">
-        <h3>Steam 50 TL</h3>
-        <div class="price">₺50</div>
-        <button class="auth-btn" onclick="sepeteEkle('Steam 50 TL', 50)">Sepete Ekle</button>
-      </div>
+.navbar .logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #4fa3ff;
+  letter-spacing: 1px;
+}
 
-      <div class="product">
-        <h3>Valorant 100 VP</h3>
-        <div class="price">₺25</div>
-        <button class="auth-btn" onclick="sepeteEkle('Valorant 100 VP', 25)">Sepete Ekle</button>
-      </div>
-    </div>
-<!-- KAYIT MODALI -->
-<div class="modal" id="registerModal">
-  <div class="modal-content">
-    <span class="close-btn" onclick="closeModal(this)">×</span>
-    <h2>Kayıt Ol</h2>
-    
-    <div style="background-color: #2c2c2c; color: #f1f1f1; padding: 10px; border-radius: 8px; font-size: 13px; margin-bottom: 15px;">
-  🔒 <strong>Kayıt Bilgisi:</strong> Kayıt olmak için tüm zorunlu alanları doldurun. 
-  <br>📩 E-posta adresinize gelen doğrulama kodunu girerek <strong>kayıt işlemini tamamlayın</strong>.
-</div>
+.navbar .nav-right {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
 
-    <label>Ad Soyad *</label>
-    <input type="text" id="kayitAdSoyad" />
+.auth-btn,
+.admin-btn {
+  font-weight: bold;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
 
-    <label>Email *</label>
-    <input type="email" id="kayitEmail" />
+.auth-btn {
+  background: #fff;
+  color: #000;
+}
 
-    <label>Kullanıcı Adı *</label>
-    <input type="text" id="kayitKullanici" />
+.auth-btn:hover {
+  background: #f0f0f0;
+  transform: scale(1.05);
+}
 
-    <label>Telefon (İsteğe Bağlı)</label>
-    <input
-      type="tel"
-      id="kayitTelefon"
-      placeholder="05xxxxxxxxx"
-      pattern="05[0-9]{9}"
-      maxlength="11"
-    />
+.admin-btn {
+  background: #2c3e50;
+  color: #fff;
+}
 
-    <label>Şifre *</label>
-    <input type="password" id="kayitSifre" />
+.admin-btn:hover {
+  background: #34495e;
+}
 
-    <label>Doğrulama Kodu *</label>
-    <input type="text" id="dogrulamaKodu" placeholder="6 haneli kod" maxlength="6" />
+/* =============================
+   SEARCH BAR
+   ============================= */
+.top-search {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
 
-    <p style="font-size: 12px; color: gray;">
-      📩 Kod gelmezse spam klasörünü kontrol et!
-    </p>
+#kategoriSelect {
+  padding: 2px 8px;
+  border-radius: 6px;
+  border: 1px solid #00aaff;
+  background: #2a2a2a;
+  color: #fff;
+  font-size: 14px;
+  width: 220px;
+  text-align: center;
+}
 
-    <!-- ✅ Bu buton sadece gerekli alanlar dolunca gösterilecek -->
-    <button id="dogrulamaBtn" class="auth-btn" onclick="dogrulamaGonder()" style="display:none; margin-bottom: 10px;">
-      Doğrulama Gönder
-    </button>
+.search-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
-    <button class="auth-btn" onclick="kayitKontrol()">Kayıt Ol</button>
+#searchInput {
+  background: #1e1e1e;
+  border: 2px solid #00aaff;
+  color: #fff;
+  font-size: 15px;
+  padding: 6px 12px;
+  border-radius: 30px;
+  height: 34px;
+  width: 270px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 6px rgba(0,170,255,0.6);
+}
+
+#searchInput:focus {
+  outline: none;
+  border-color: #00ccff;
+  box-shadow: 0 0 12px rgba(0,200,255,0.9);
+  background: #111;
+}
+
+#searchBtn {
+  background: #00aaff;
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  height: 36px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 6px rgba(0,170,255,0.6);
+}
+
+#searchBtn:hover {
+  background: #008ecc;
+  transform: scale(1.08);
+  box-shadow: 0 0 12px rgba(0,200,255,0.9);
+}
+
+/* =============================
+   DROPDOWN NAVIGATION
+   ============================= */
+.dropdown-nav {
+  background-color: #191919;
+  padding: 10px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  border-top: 1px solid #333;
+  border-bottom: 1px solid #333;
+}
+
+.dropdown-nav a {
+  color: #ccc;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.dropdown-nav a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+/* =============================
+   PRODUCT LIST
+   ============================= */
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  padding: 30px 10px;
+}
+
+.product-card {
+  background: #1a1a1a;
+  border: 2px solid #00aaff;
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+  width: 200px;
+  transition: all 0.3s ease;
+}
+
+.product-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(0,170,255,0.6);
+}
+
+.product-card img {
+  width: 100px;
+  height: auto;
+  margin-bottom: 10px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.product-card h3 {
+  font-size: 16px;
+  color: #fff;
+}
+
+.product-card .price {
+  font-size: 16px;
+  color: #fff;
+  margin: 10px 0;
+}
+</style>
+<style>
+/* =============================
+   MODAL STYLES
+   ============================= */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0; 
+  top: 0;
+  width: 100%; 
+  height: 100%;
+  background-color: rgba(0,0,0,0.7);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: #1e1e1e;
+  padding: 25px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 420px;
+  color: white;
+  position: relative;
+  animation: fadeSlideIn 0.4s ease;
+}
+
+.modal-content h2,
+.modal-content h3 {
+  margin-top: 0;
+  color: #4fa3ff;
+  text-align: center;
+}
+
+.modal-content label {
+  display: block;
+  margin-top: 12px;
+  font-weight: 500;
+}
+
+.modal-content input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #333;
+  margin-top: 6px;
+  background: #111;
+  color: #fff;
+}
+
+.modal-content button {
+  margin-top: 15px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.modal-content button:hover {
+  transform: scale(1.05);
+}
+
+/* Modal çarpı (kapatma) butonu */
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 26px;
+  font-weight: bold;
+  color: #aaa;
+  cursor: pointer;
+  background: none;   /* arka plan yok */
+  border: none;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+  color: #ff4d4d;       /* kırmızıya dönüşsün */
+  transform: scale(1.2); /* biraz büyüsün */
+  text-shadow: 0 0 6px rgba(255, 77, 77, 0.7); /* hafif glow efekti */
+}
+
+/* =============================
+   ADMIN PANEL
+   ============================= */
+.styled-modal {
+  max-width: 600px;
+}
+
+.styled-modal h3 {
+  margin-bottom: 10px;
+  font-size: 18px;
+  color: #f39c12;
+}
+
+.styled-modal section {
+  margin-bottom: 20px;
+}
+
+.full-btn {
+  width: 100%;
+}
+
+#kullaniciListesi {
+  margin-top: 10px;
+  padding: 0;
+}
+
+#kullaniciListesi li {
+  padding: 8px;
+  border-bottom: 1px solid #333;
+  font-size: 14px;
+}
+
+#kullaniciListesi button {
+  margin-left: 8px;
+  background: #e74c3c;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+  font-size: 12px;
+}
+
+#kullaniciListesi button:hover {
+  background: #c0392b;
+}
+
+/* =============================
+   SEPET (CART)
+   ============================= */
+#cartList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#cartList li {
+  margin: 8px 0;
+  background: #222;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #444;
+}
+
+#toplamTutar {
+  margin-top: 12px;
+  font-weight: bold;
+  font-size: 16px;
+  text-align: right;
+  color: #4fa3ff;
+}
+
+/* Boşalt Onay */
+#bosaltOnayModal .modal-content {
+  text-align: center;
+  max-width: 350px;
+}
+
+#bosaltOnayModal h3 {
+  color: #f39c12;
+}
+
+#bosaltOnayModal button {
+  margin: 8px;
+}
+
+/* =============================
+   UYARI KUTULARI
+   ============================= */
+.uyari-box {
+  background-color: #e74c3c;
+  color: white;
+  padding: 10px 18px;
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 10px;
+  z-index: 9999;
+  display: none;
+  font-size: 14px;
+  font-weight: 500;
+  animation: fadeSlideIn 0.4s ease;
+}
+
+.uyari-box.success {
+  background-color: #2ecc71;
+}
+
+.uyari-box.info {
+  background-color: #2196F3;
+}
+
+/* Orta ekranda çıkan özel uyarı */
+#sonucUyari {
+  display: none;
+  position: fixed;
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%,-50%);
+  background:#ff4444; 
+  color:#fff; 
+  padding:15px 25px; 
+  border-radius:8px; 
+  font-weight:bold; 
+  box-shadow:0 4px 12px rgba(0,0,0,0.3); 
+  z-index:2000;
+}
+
+/* =============================
+   ANIMATIONS
+   ============================= */
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+/* =============================
+   RESPONSIVE
+   ============================= */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+  }
+  .nav-right {
+    width: 100%;
+    justify-content: space-around;
+    margin-top: 10px;
+  }
+  .product-list {
+    flex-direction: column;
+    align-items: center;
+  }
+  .modal-content {
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  #searchInput {
+    width: 100%;
+  }
+}
+</style>
+<style>
+/* =============================
+   EKSTRA BUTON STİLLERİ
+   ============================= */
+button {
+  font-family: inherit;
+  font-size: 15px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:active {
+  transform: scale(0.96);
+}
+
+.primary-btn {
+  background: #4fa3ff;
+  color: #fff;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 8px;
+}
+
+.primary-btn:hover {
+  background: #1e90ff;
+  box-shadow: 0 0 10px rgba(30,144,255,0.6);
+}
+
+.danger-btn {
+  background: #e74c3c;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 8px;
+}
+
+.danger-btn:hover {
+  background: #c0392b;
+}
+
+.success-btn {
+  background: #2ecc71;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 8px;
+}
+
+.success-btn:hover {
+  background: #27ae60;
+}
+
+/* =============================
+   FORM STİLLERİ
+   ============================= */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="tel"] {
+  width: 100%;
+  padding: 10px;
+  margin: 6px 0;
+  border-radius: 6px;
+  border: 1px solid #333;
+  background: #111;
+  color: #fff;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+input:focus {
+  border-color: #00aaff;
+  outline: none;
+  box-shadow: 0 0 6px rgba(0,170,255,0.6);
+}
+
+label {
+  font-size: 14px;
+  margin-bottom: 4px;
+  display: block;
+  color: #ccc;
+}
+
+/* =============================
+   KART & GÖRSEL EFEKTLER
+   ============================= */
+.card {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 12px 0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+}
+
+/* Avatar */
+.avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 2px solid #00aaff;
+}
+
+/* =============================
+   TABLOLAR
+   ============================= */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0;
+}
+
+table th, table td {
+  border: 1px solid #333;
+  padding: 10px;
+  text-align: left;
+  color: #eee;
+}
+
+table th {
+  background: #2c3e50;
+}
+
+table tr:nth-child(even) {
+  background: #1e1e1e;
+}
+
+/* =============================
+   EKSTRA ANİMASYONLAR
+   ============================= */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes glow {
+  0% { box-shadow: 0 0 5px #00aaff; }
+  50% { box-shadow: 0 0 20px #00ccff; }
+  100% { box-shadow: 0 0 5px #00aaff; }
+}
+
+.glow-effect {
+  animation: glow 2s infinite;
+}
+
+.pulse-effect {
+  animation: pulse 1.5s infinite;
+}
+
+/* =============================
+   FİLTRELER & SCROLLBAR
+   ============================= */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #111;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #00aaff;
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #008ecc;
+}
+
+/* =============================
+   RESPONSIVE EKSTRA
+   ============================= */
+@media (max-width: 1024px) {
+  .product-card {
+    width: 45%;
+  }
+  .top-search {
+    flex-direction: column;
+    gap: 6px;
+  }
+}
+
+@media (max-width: 600px) {
+  .navbar .logo {
+    font-size: 20px;
+  }
+  .product-card {
+    width: 90%;
+  }
+  .nav-right {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .auth-btn, .admin-btn {
+    width: 100%;
+  }
+}
+</style>
+<body>
+  
+  <!-- UYARI KUTUSU -->
+  <div id="uyariBox" class="uyari-box" style="display:none">
+    ⚠️ <span id="uyariMetni">Uyarı mesajı</span>
   </div>
-</div>
-
-    <!-- GİRİŞ MODALI -->
-    <div class="modal" id="loginModal">
-      <div class="modal-content">
-        <span class="close-btn" onclick="closeModal(this)">×</span>
-        <h2>Giriş Yap</h2>
-
-        <label>Email veya Kullanıcı Adı *</label>
-        <input type="text" id="girisEmail" placeholder="Email ya da kullanıcı adı" />
-
-        <label>Şifre *</label>
-        <div style="position: relative;">
-          <input type="password" id="girisSifre" placeholder="Şifre" />
-          <span
-            onclick="toggleSifre('girisSifre', this)"
-            style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;"
-            >👁️</span
-          >
-        </div>
-
-        <button class="auth-btn" onclick="girisKontrol()">Giriş Yap</button>
-</div>
+  
+  <!-- NAVBAR -->
+  <div class="navbar">
+    <div class="logo">EPIN</div>
+    
+    <!-- ARAMA -->
+    <div class="top-search">
+      <select id="kategoriSelect">
+        <option value="">Tüm Kategoriler</option>
+        <option value="steam">Steam</option>
+        <option value="valorant">Valorant</option>
+        <option value="pubg">PUBG</option>
+        <option value="lol">League of Legends</option>
+      </select>
+      <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Arama yap..." />
+        <button id="searchBtn">Ara</button>
+      </div>
     </div>
     
+    <!-- SAĞDA GÖRÜNEN BUTONLAR (GUEST) -->
+    <div class="nav-right" id="guestButtons">
+      <button class="auth-btn" onclick="openModal('registerModal')">Kayıt Ol</button>
+      <button class="auth-btn" onclick="openModal('loginModal')">Giriş Yap</button>
+      <button class="auth-btn" onclick="openModal('cartModal')">🛒 Sepet</button>
+      <button class="admin-btn" onclick="openModal('adminGirisModal')">Admin</button>
+    </div>
     
-
-    <!-- ADMIN GİRİŞ MODALI -->
-    <div class="modal" id="adminGirisModal">
-      <div class="modal-content">
-        <span class="close-btn" onclick="closeModal(this)">×</span>
-        <h2>Admin Girişi</h2>
-
-        <label>Kullanıcı Adı *</label>
-        <input type="text" id="adminKullanici" />
-
-        <label>Şifre *</label>
-        <input type="password" id="adminSifre" />
-
-        <button class="auth-btn" onclick="adminGirisYap()">Giriş Yap</button>
-      </div>
-    </div>
-
-    <!-- SEPET MODAL -->
-    <div class="modal" id="cartModal">
-      <div class="modal-content">
-        <span class="close-btn" onclick="closeModal(this)">×</span>
-        <h2>Sepetim</h2>
-        <ul id="cartList" style="list-style: none; padding: 0;"></ul>
-        <div id="toplamTutar" style="margin-top: 15px; font-weight: bold;"></div>
-        <button class="auth-btn" onclick="sepetiBosalt()">Sepeti Boşalt</button>
-      </div>
-    </div>
-    <!-- ADMIN PANEL MODALI -->
-    <div class="modal" id="adminPanelModal">
-      <div class="modal-content styled-modal">
-        <span class="close-btn" onclick="closeModal(this)">×</span>
-        <h2 class="modal-title">Admin Panel</h2>
-
-        <!-- Ürün Ekle -->
-        <section style="margin-bottom: 20px;">
-          <h3>➕ Ürün Ekle</h3>
-          <label>Ürün Adı *</label>
-          <input type="text" id="urunAdi" placeholder="Örn: Steam 50 TL" />
-
-          <label>Fiyat *</label>
-          <input type="number" id="urunFiyat" placeholder="Örn: 50" />
-
-          <button class="auth-btn full-btn" onclick="urunEkle()">Ekle</button>
-        </section>
-
-        <!-- Ürün Sil -->
-        <section style="margin-bottom: 20px;">
-          <h3>🗑️ Ürün Sil</h3>
-          <label>Silinecek Ürün Adı *</label>
-          <input type="text" id="silUrunAdi" placeholder="Adı tam girin" />
-          <button onclick="urunSilAdmin()" class="auth-btn full-btn">Sil</button>
-        </section>
-
-        <!-- Ürün Güncelle -->
-        <section style="margin-bottom: 20px;">
-          <h3>✏️ Ürün Güncelle</h3>
-          <label>Eski Ürün Adı *</label>
-          <input type="text" id="guncelleEski" placeholder="Mevcut ad" />
-
-          <label>Yeni Ürün Adı *</label>
-          <input type="text" id="guncelleYeni" placeholder="Yeni ad" />
-
-          <label>Yeni Fiyat *</label>
-          <input type="number" id="guncelleFiyat" placeholder="Yeni fiyat" />
-
-          <button class="auth-btn full-btn" onclick="urunGuncelle()">Güncelle</button>
-        </section>
-
-        <!-- Kullanıcı Listeleme -->
-        <section style="margin-bottom: 20px;">
-          <h3>👤 Kayıtlı Kullanıcılar</h3>
-          <button class="auth-btn" onclick="kullanicilariGoster()">Listeyi Göster</button>
-          <ul id="kullaniciListesi" style="margin-top: 10px; padding-left: 18px;"></ul>
-        </section>
-      </div>
-    </div>
-
-    <!-- ÇIKIŞ MENÜSÜ (Admin veya Kullanıcı için) -->
-    <div id="adminMenuContainer" style="display: none; position: relative;">
-      <button onclick="toggleAdminMenu()" style="font-size: 20px; background: transparent; border: none;">👤</button>
-      <div
-        id="adminMenuDropdown"
-        style="display: none; position: absolute; top: 30px; right: 0; background: #222; color: #fff; border: 1px solid #555; padding: 10px; border-radius: 6px;"
-      >
-        <button onclick="openModal('adminPanelModal')">📋 Admin Panel</button><br />
-        <button onclick="adminCikisYap()">🚪 Çıkış Yap</button>
-      </div>
-    </div>
-
-    <div id="hesabimContainer" style="display: none; position: relative;">
-      <button
-        onclick="toggleHesabimMenu()"
-        style="background: none; border: none; font-size: 20px; cursor: pointer;"
-      >
-        👤 Hesabım
-      </button>
-      <div
-        id="hesabimDropdown"
-        style="display: none; position: absolute; right: 0; background: #fff; border: 1px solid #ccc; border-radius: 6px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); z-index: 999;"
-      >
-        <ul style="list-style: none; margin: 0; padding: 10px;">
-          <li style="padding: 5px 10px; cursor: pointer;" onclick="gosterUyari('👋 Çıkış yapıldı.'); kullaniciCikisYap()">Çıkış Yap</li>
+    <!-- HESABIM (KULLANICI GİRİŞ YAPTIYSA) -->
+    <div id="hesabimContainer" style="display:none;">
+      <button class="auth-btn" onclick="toggleHesabimMenu()">👤 Hesabım</button>
+      <div id="hesabimDropdown" style="display:none;">
+        <ul style="list-style:none; margin:0; padding:10px;">
+          <li onclick="kontrolMerkeziAc()">⚙️ Kontrol Merkezi</li>
+          <li onclick="openModal('cartModal')">🛒 Sepetim</li>
+          <li onclick="kullaniciCikisYap()">🚪 Çıkış Yap</li>
         </ul>
       </div>
     </div>
+  </div>
+  
+  <!-- KATEGORİ MENÜ -->
+<div class="dropdown-nav">
+  <a href="">🏠 Ana Sayfa</a>
+  <a href="hakkimizda.html">ℹ️ Hakkımızda</a>
+  <a href="iletisim.html">📞 İletişim</a>
+</div>
+  <a href="#">Knight Online</a>  
+  <a href="#">Rise Online</a>  
+  <a href="#">Oyunlar</a>  
+  <a href="#">Fırsatlar</a>  
+  <a href="#">Oyuncu Pazarı</a>  
+  <a href="#">Tüm Ürünler</a>  
 
-    <!-- BOŞALT ONAY MODALI -->
-    <div id="bosaltOnayModal" class="modal">
-      <div class="modal-content" style="text-align: center;">
-        <span class="close-btn" onclick="closeModal(this)">×</span>
-        <h3 style="color: #f39c12;">Sepeti tamamen boşaltmak üzeresiniz</h3>
-        <p>Emin misiniz?</p>
-        <button class="auth-btn" onclick="onaylaBosalt()">Evet, boşalt</button>
-        <button class="auth-btn" style="background-color: gray; color: white;" onclick="closeModal(this)">Vazgeç</button>
+</div>
+  </div>
+  
+  <!-- ÜRÜN LİSTESİ -->
+  <div class="product-list">
+    
+
+    <!-- Valorant -->
+    <div class="product-card">
+      <img src="https://logos-world.net/wp-content/uploads/2023/06/Valorant-Logo.png" alt="Valorant" />
+      <h3>Valorant 100 VP</h3>
+      <div class="price">₺25</div>
+      <button class="auth-btn" onclick="sepeteEkle('Valorant 100 VP', 25)">Sepete Ekle</button>
+    </div>
+    
+    <!-- PUBG -->
+    <div class="product-card">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/4/43/PUBG_Mobile_simple_logo_black.png" alt="PUBG" />
+      <h3>PUBG UC 60</h3>
+      <div class="price">₺30</div>
+      <button class="auth-btn" onclick="sepeteEkle('PUBG UC 60', 30)">Sepete Ekle</button>
+    </div>
+    
+    <!-- LoL -->
+    <div class="product-card">
+      <img src="https://logos-world.net/wp-content/uploads/2020/11/League-of-Legends-Logo.png" alt="League of Legends" />
+      <h3>League of Legends 1380 RP</h3>
+      <div class="price">₺45</div>
+      <button class="auth-btn" onclick="sepeteEkle('League of Legends 1380 RP', 45)">Sepete Ekle</button>
+    </div>
+    
+    <!-- Ek örnek ürünler (listeyi uzatmak için) -->
+    <div class="product-card">
+      <img src="https://seeklogo.com/images/N/nitro-logo-45B2F71D6B-seeklogo.com.png" alt="Discord Nitro" />
+      <h3>Discord Nitro 1 Ay</h3>
+      <div class="price">₺80</div>
+      <button class="auth-btn" onclick="sepeteEkle('Discord Nitro 1 Ay', 80)">Sepete Ekle</button>
+    </div>
+    
+    <div class="product-card">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/d/d3/Netflix_icon.svg" alt="Netflix" />
+      <h3>Netflix Gift Card</h3>
+      <div class="price">₺100</div>
+      <button class="auth-btn" onclick="sepeteEkle('Netflix Gift Card', 100)">Sepete Ekle</button>
+    </div>
+    
+    <div class="product-card">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/2/2b/Spotify_logo_without_text.svg" alt="Spotify" />
+      <h3>Spotify Premium 3 Ay</h3>
+      <div class="price">₺120</div>
+      <button class="auth-btn" onclick="sepeteEkle('Spotify Premium 3 Ay', 120)">Sepete Ekle</button>
+    </div>
+    </div>
+     <!-- 📌 Kayıt Modal -->
+  <div id="registerModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('#registerModal')">&times;</span>
+      <h2>Kayıt Ol</h2>
+
+      <label>Ad Soyad *</label>
+      <input type="text" id="kayitAdSoyad" placeholder="Adınız Soyadınız" oninput="kayitFormKontrol()">
+<label for="kayitEmail">E-posta *</label>
+<input type="email" id="kayitEmail" placeholder="E-posta" oninput="emailKontrolEt()">
+<small id="emailUyari" style="color:#ff4444; display:none; font-size:13px; margin-top:4px;">
+  ❌ Geçerli bir e-posta adresi giriniz.
+</small>
+
+      <label>Kullanıcı Adı *</label>
+      <input type="text" id="kayitKullanici" placeholder="Kullanıcı Adı" oninput="kayitFormKontrol()">
+<label>Şifre *</label>
+<input type="password" id="kayitSifre" placeholder="Şifre" oninput="validatePassword()">
+
+<!-- Küçük şifre şartları -->
+<small id="sifreKurallari" style="font-size:10px; color:#bbb; display:block; margin-top:4px;">
+  ❌ En az 8 karakter, 1 büyük harf, 1 küçük harf, 1 rakam, 1 özel karakter (!@#$%^&*.)
+</small>
+      
+      <label>Telefon (İsteğe Bağlı)</label>
+      <input type="tel" id="kayitTelefon" placeholder="05xxxxxxxxx">
+
+      <!-- Doğrulama Gönder butonu -->
+     <!-- Butonlar yan yana -->
+<div style="display:flex; gap:10px; margin-top:10px;">
+  
+  <button id="dogrulamaGonderBtn" style="display:none;" onclick="kayitDogrulamaGonder()" class="auth-btn">
+    Doğrulama Gönder
+  </button>
+</div>
+      <label>Doğrulama Kodu</label>
+      <input type="text" id="dogrulamaKodu" placeholder="E-mail ile gelen kodu giriniz">
+
+      <button class="auth-btn" onclick="kayitKontrol()">Kayıt Ol</button>
+    </div>
+  </div>
+
+  <!-- 📌 Giriş Modal -->
+  <div class="modal" id="loginModal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('#loginModal')">×</span>
+      <h2>Giriş Yap</h2>
+
+      <label>Email veya Kullanıcı Adı *</label>
+      <input type="text" id="girisEmail" placeholder="Email ya da kullanıcı adı" />
+
+      <label>Şifre *</label>
+      <div style="position: relative;">
+        <input type="password" id="girisSifre" placeholder="Şifre" />
+        <span
+          onclick="toggleSifre('girisSifre', this)"
+          style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;"
+        >👁️</span>
+      </div>
+
+      <button class="auth-btn" onclick="girisKontrol()">Giriş Yap</button>
+
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+        <label style="display:flex; align-items:center; gap:5px; font-size:14px;">
+          <input type="checkbox"> Beni Hatırla
+        </label>
+        <span class="sifremi-unuttum" onclick="openModal('resetPasswordModal')">🔑 Şifremi Unuttum!</span>
       </div>
     </div>
-  
+  </div>
 
-<!-- JS KODLARI -->
-<script>
-// ✅ GLOBALE
-let sepet = [];
-let adminGirisYapildi = false;
-let gonderilenKod = "";
+  <!-- 📌 Şifre Sıfırla – 1. Adım -->
+  <div class="modal" id="resetPasswordModal" style="display:none;">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('#resetPasswordModal')">&times;</span>
+      <h3>Şifre Sıfırla</h3>
 
-// ✅ MODAL AÇ-KAPA
+      <input type="email" id="resetEmail" placeholder="E-posta">
+
+      <div style="display:flex; align-items:center; gap:12px; justify-content:center; margin-top:10px;">
+        <button id="btnSifreYenileIleri" class="auth-btn" onclick="sifreYenileGonder()">İleri →</button>
+        <button class="geri-btn" onclick="geriDon()">◀ Geri Dön</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 📌 Şifre Sıfırla – 2. Adım -->
+  <div class="modal" id="sifreKodModal" style="display:none;">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('#sifreKodModal')">&times;</span>
+      <h3>Kod Gir</h3>
+
+      <input type="text" id="girilenKod" placeholder="E-postana gelen 6 haneli kod">
+
+      <div style="display:flex;align-items:center;gap:12px;justify-content:center;margin-top:8px;">
+        <button class="auth-btn" onclick="koduKontrolEt()">Onayla</button>
+        <button class="geri-btn" onclick="geriDon()">◀ Geri Dön</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 📌 Şifre Sıfırla – 3. Adım -->
+  <div class="modal" id="yeniSifreModal" style="display:none;">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('#yeniSifreModal')">&times;</span>
+      <h3>Yeni Şifre</h3>
+      <input type="password" id="yeniSifre" placeholder="Yeni Şifre">
+      <button class="auth-btn" onclick="yeniSifreKaydet()">Şifreyi Güncelle</button>
+    </div>
+  </div>
+<!-- 🛒 Sepet Modal -->
+<div id="cartModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeModal('#cartModal')">×</span>
+    <h2>Sepetim</h2>
+
+    <!-- Sepet ürün listesi -->
+    <ul id="cartList" style="list-style:none; padding:0; margin:0;"></ul>
+
+    <!-- Toplam fiyat -->
+    <div id="toplamTutar" style="margin-top:10px; font-weight:bold;"></div>
+
+    <!-- Sepeti boşalt -->
+    <button class="auth-btn" onclick="sepetiBosaltOnay()">Sepeti Boşalt</button>
+  </div>
+</div>
+
+<!-- 🗑️ Sepeti Boşalt Onay Modal -->
+<div id="bosaltOnayModal" class="modal">
+  <div class="modal-content" style="text-align:center;">
+    <p>Sepeti boşaltmak istediğine emin misin?</p>
+    <button class="auth-btn" onclick="onaylaBosalt()">Evet, boşalt</button>
+    <button class="auth-btn" style="background-color: gray; color: white;" onclick="closeModal('#bosaltOnayModal')">Vazgeç</button>
+  </div>
+</div>
+
+<!-- ⚠️ Uyarı Kutusu -->
+<div id="uyariBox" class="uyari-box" style="display:none;">
+  <span id="uyariMetni"></span>
+</div>
+  <!-- 📌 Admin Giriş Modal -->
+  <div class="modal" id="adminGirisModal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('#adminGirisModal')">×</span>
+      <h2>Admin Girişi</h2>
+      <label>Kullanıcı Adı *</label>
+      <input type="text" id="adminKullanici" />
+      <label>Şifre *</label>
+      <input type="password" id="adminSifre" />
+      <button class="auth-btn" onclick="adminGirisYap()">Giriş Yap</button>
+    </div>
+  </div>
+
+  <!-- 📌 Admin Panel Modal -->
+  <div class="modal" id="adminPanelModal">
+    <div class="modal-content styled-modal">
+      <span class="close-btn" onclick="closeModal('#adminPanelModal')">×</span>
+      <h2 class="modal-title">Admin Panel</h2>
+
+      <!-- Ürün Ekle -->
+      <section style="margin-bottom:20px;">
+        <h3>➕ Ürün Ekle</h3>
+        <label>Ürün Adı *</label>
+        <input type="text" id="urunAdi" placeholder="Örn: Steam 50 TL" />
+        <label>Fiyat *</label>
+        <input type="number" id="urunFiyat" placeholder="Örn: 50" />
+        <button class="auth-btn full-btn" onclick="urunEkle()">Ekle</button>
+      </section>
+
+      <!-- Ürün Sil -->
+      <section style="margin-bottom:20px;">
+        <h3>🗑️ Ürün Sil</h3>
+        <label>Silinecek Ürün Adı *</label>
+        <input type="text" id="silUrunAdi" placeholder="Adı tam girin" />
+        <button class="auth-btn full-btn" onclick="urunSilAdmin()">Sil</button>
+      </section>
+
+      <!-- Ürün Güncelle -->
+      <section style="margin-bottom:20px;">
+        <h3>✏️ Ürün Güncelle</h3>
+        <label>Eski Ürün Adı *</label>
+        <input type="text" id="guncelleEski" placeholder="Mevcut ad" />
+        <label>Yeni Ürün Adı *</label>
+        <input type="text" id="guncelleYeni" placeholder="Yeni ad" />
+        <label>Yeni Fiyat *</label>
+        <input type="number" id="guncelleFiyat" placeholder="Yeni fiyat" />
+        <button class="auth-btn full-btn" onclick="urunGuncelle()">Güncelle</button>
+      </section>
+
+      <!-- Kullanıcı Listeleme -->
+      <section>
+        <h3>👤 Kayıtlı Kullanıcılar</h3>
+        <button class="auth-btn" onclick="kullanicilariGoster()">Listeyi Göster</button>
+        <ul id="kullaniciListesi"></ul>
+      </section>
+    </div>
+  </div>
+
+  <!-- 📌 Admin Menü -->
+  <div id="adminMenuContainer" style="display:none; position:relative;">
+    <button onclick="toggleAdminMenu()" style="font-size:20px; background:transparent; border:none;">👤</button>
+    <div id="adminMenuDropdown"
+         style="display:none; position:absolute; top:30px; right:0; background:#222; color:#fff; border:1px solid #555; padding:10px; border-radius:6px;">
+      <button onclick="openModal('adminPanelModal')">📋 Admin Panel</button><br />
+      <button onclick="adminCikisYap()">🚪 Çıkış Yap</button>
+    </div>
+  </div>
+
+  <!-- 📌 Uyarı Box -->
+  <div id="uyariBox" class="uyari-box" style="display:none;">
+    <span id="uyariMetni"></span>
+  </div>
+
+<!-- 📌 Footer -->
+  <footer style="background:#1e1e1e; color:#bbb; padding:30px; text-align:center; margin-top:40px;">
+    <div style="max-width:1000px; margin:0 auto; display:flex; flex-wrap:wrap; gap:40px; justify-content:center;">
+      <div style="flex:1; min-width:200px;">
+        <h3 style="color:#4fa3ff;">EPIN</h3>
+        <p>Oyun keyfini doyasıya yaşa! Güvenli ve hızlı e-pin alışverişi.</p>
+      </div>
+      <div style="flex:1; min-width:200px;">
+        <h4>Hızlı Linkler</h4>
+        <ul style="list-style:none; padding:0; margin:0;">
+          <li><a href="#" style="color:#bbb; text-decoration:none;">Hakkımızda</a></li>
+          <li><a href="#" style="color:#bbb; text-decoration:none;">İletişim</a></li>
+          <li><a href="#" style="color:#bbb; text-decoration:none;">SSS</a></li>
+        </ul>
+      </div>
+      <div style="flex:1; min-width:200px;">
+        <h4>Bizi Takip Et</h4>
+        <p>
+          <a href="#" style="color:#4fa3ff; margin:0 8px;">Facebook</a>
+          <a href="#" style="color:#4fa3ff; margin:0 8px;">Twitter</a>
+          <a href="#" style="color:#4fa3ff; margin:0 8px;">Instagram</a>
+        </p>
+      </div>
+    </div>
+    <p style="margin-top:20px; font-size:14px; color:#777;">© 2025 EPIN. Tüm hakları saklıdır.</p>
+  </footer>
+
+  <script>
+  /* =========================
+EPIN – Script.js (Full)
+========================= */
+
+// ====== Global State ======
+let sepet = JSON.parse(localStorage.getItem("sepet") || "[]");
+let gonderilenKod = null; // email doğrulama için
+const ADMIN_USER = "kral";
+const ADMIN_PASS = "12345";
+
+// ====== Helpers ======
+function $(sel) { return document.querySelector(sel); }
+function $id(id) { return document.getElementById(id); }
+const norm = (s) => (s || "").trim().toLowerCase();
+
+// ====== Uyarı Kutusu ======
+function gosterUyari(mesaj, tip = "error", sure = 2000) {
+const box = $id("uyariBox");
+const text = $id("uyariMetni");
+if (!box || !text) return alert(mesaj);
+
+box.className = "uyari-box" + (tip === "success" ? " success" : "");
+text.textContent = mesaj;
+box.style.display = "block";
+box.style.opacity = "1";
+
+setTimeout(() => {
+box.style.opacity = "0";
+setTimeout(() => {
+box.style.display = "none";
+box.className = "uyari-box";
+}, 400);
+}, sure);
+}
+
+// ====== Modal Aç/Kapat ======
 function openModal(id) {
-  const modal = document.getElementById(id);
-  if (modal) modal.style.display = "flex";
+if (id === "adminPanelModal" && localStorage.getItem("adminGiris") !== "true") {
+return gosterUyari("❌ Bu işlem için admin girişi yapmalısınız.");
 }
-function closeModal(btn) {
-  const modal = btn.closest(".modal");
-  if (modal) modal.style.display = "none";
+const modal = $id(id);
+if (modal) modal.style.display = "flex";
 }
+function closeModal(sel) {
+const m = typeof sel === "string" ? document.querySelector(sel) : sel?.closest?.(".modal");
+if (m) m.style.display = "none";
+}
+// dışarı tıklayınca kapanma
 document.querySelectorAll(".modal").forEach(modal => {
-  modal.addEventListener("click", function (e) {
-    if (e.target === modal) modal.style.display = "none";
-  });
+modal.addEventListener("click", (e) => {
+if (e.target === modal) modal.style.display = "none";
+});
 });
 
-// ✅ UYARI
-function gosterUyari(mesaj, tip = "error") {
-  const box = document.getElementById("uyariBox");
-  const metin = document.getElementById("uyariMetni");
-  box.classList.remove("success");
-  if (tip === "success") box.classList.add("success");
+// ====== Şifre Göster/Gizle ======
+function toggleSifre(inputId, btn) {
+const inp = $id(inputId);
+if (!inp) return;
+if (inp.type === "password") {
+inp.type = "text"; btn.textContent = "🙈";
+} else {
+inp.type = "password"; btn.textContent = "👁️";
+}
+}
+  </script>
+  <script>
+  // ====== Kayıt ======
+function kayitKontrol() {
+  const ad = $id("kayitAdSoyad")?.value.trim();
+  const email = $id("kayitEmail")?.value.trim();
+  const kullanici = $id("kayitKullanici")?.value.trim();
+  const sifre = $id("kayitSifre")?.value.trim();
+  const girilenKod = $id("dogrulamaKodu")?.value.trim();
 
-  metin.textContent = mesaj;
+  if (!ad || !email || !kullanici || !sifre)
+    return gosterUyari("❌ Lütfen tüm alanları doldurun.");
+  if (!gonderilenKod)
+    return gosterUyari("📨 Önce doğrulama kodu gönderin.");
+  if (!girilenKod || girilenKod !== String(gonderilenKod))
+    return gosterUyari("❌ Doğrulama kodu hatalı.");
+
+  let users = JSON.parse(localStorage.getItem("kullanicilar") || "[]");
+
+  const varMi = users.some(u => norm(u.email) === norm(email));
+  if (varMi) return gosterUyari("⚠️ Bu e-posta zaten kayıtlı!");
+
+  users.push({ ad, email, kullaniciAdi: kullanici, sifre });
+  localStorage.setItem("kullanicilar", JSON.stringify(users));
+  localStorage.setItem("kullaniciBilgi", JSON.stringify({ ad, email, kullaniciAdi: kullanici, sifre }));
+
+  gosterUyari("✅ Kayıt başarılı!", "success");
+  closeModal("#registerModal");
+}
+// Form kontrol → alanlar dolunca buton göster
+function kayitFormKontrol() {
+  const ad = document.getElementById("kayitAdSoyad")?.value.trim();
+  const email = document.getElementById("kayitEmail")?.value.trim();
+  const kullanici = document.getElementById("kayitKullanici")?.value.trim();
+  const sifre = document.getElementById("kayitSifre")?.value.trim();
+  const btn = document.getElementById("dogrulamaGonderBtn");
+
+  if (!btn) return;
+
+  btn.style.display = (ad && email && kullanici && sifre) ? "block" : "none";
+}
+
+// ====== Giriş ======
+function girisKontrol() {
+  const girisEmail = $id("girisEmail").value.trim();
+  const sifre = $id("girisSifre").value.trim();
+
+  const kayitli = JSON.parse(localStorage.getItem("kullanicilar")) || [];
+  const eslesen = kayitli.find(k =>
+    (norm(k.email) === norm(girisEmail) || norm(k.kullaniciAdi) === norm(girisEmail)) &&
+    k.sifre === sifre
+  );
+
+  if (eslesen) {
+    localStorage.setItem("aktifKullanici", JSON.stringify(eslesen));
+    gosterUyari("✅ Giriş başarılı!", "success");
+    closeModal("#loginModal");
+    uiGuncelle();
+  } else {
+    gosterUyari("❌ Hatalı bilgiler!", "error");
+  }
+}
+
+// ====== Çıkış ======
+function kullaniciCikisYap() {
+  localStorage.removeItem("aktifKullanici");
+  uiGuncelle();
+  gosterUyari("👋 Çıkış yapıldı.", "success");
+}
+
+// ====== UI Güncelle ======
+function uiGuncelle() {
+  const aktif = JSON.parse(localStorage.getItem("aktifKullanici"));
+  const guest = $id("guestButtons");
+  const hesap = $id("hesabimContainer");
+
+  if (aktif) {
+    if (guest) guest.style.display = "none";
+    if (hesap) hesap.style.display = "block";
+    $id("panelKullaniciAdi") && ($id("panelKullaniciAdi").textContent = aktif.kullaniciAdi || aktif.ad);
+  } else {
+    if (guest) guest.style.display = "flex";
+    if (hesap) hesap.style.display = "none";
+  }
+}
+document.addEventListener("DOMContentLoaded", uiGuncelle);
+
+// ====== Hesabım Menü ======
+function toggleHesabimMenu() {
+  const menu = $id("hesabimDropdown");
+  if (menu) menu.style.display = menu.style.display === "block" ? "none" : "block";
+}
+window.addEventListener("click", (e) => {
+  const menu = $id("hesabimDropdown");
+  if (menu && !e.target.closest("#hesabimContainer")) {
+    menu.style.display = "none";
+  }
+});
+
+</script>
+
+<script>// ====== Ürün Yönetimi ======
+
+// Ürünleri yenile (sayfaya bas)
+function urunleriYenile() {
+const list = JSON.parse(localStorage.getItem("urunler")) || [];
+const container = document.querySelector(".product-list");
+if (!container) return;
+
+container.innerHTML = "";
+
+list.forEach((u, i) => {
+const card = document.createElement("div");
+card.className = "product-card";
+card.innerHTML = `
+<img src="https://via.placeholder.com/100" alt="Ürün">
+<h3>${u.ad}</h3>
+<div class="price">₺${u.fiyat}</div>
+<button onclick="sepeteEkle('${u.ad}', ${u.fiyat})">Sepete Ekle</button>
+`;
+container.appendChild(card);
+});
+}
+
+// Ürün ekle
+function urunEkle() {
+const ad = $id("urunAdi").value.trim();
+const fiyat = $id("urunFiyat").value.trim();
+
+if (!ad || !fiyat) {
+return gosterUyari("❗ Lütfen tüm alanları doldurun");
+}
+
+let urunler = JSON.parse(localStorage.getItem("urunler")) || [];
+urunler.push({ ad, fiyat });
+localStorage.setItem("urunler", JSON.stringify(urunler));
+
+gosterUyari("✅ Ürün eklendi", "success");
+$id("urunAdi").value = "";
+$id("urunFiyat").value = "";
+urunleriYenile();
+}
+
+// Ürün sil
+function urunSilAdmin() {
+const silAd = $id("silUrunAdi").value.trim();
+let urunler = JSON.parse(localStorage.getItem("urunler")) || [];
+
+const yeniListe = urunler.filter(u => u.ad.toLowerCase() !== silAd.toLowerCase());
+if (yeniListe.length === urunler.length) {
+return gosterUyari("❌ Ürün bulunamadı");
+}
+
+localStorage.setItem("urunler", JSON.stringify(yeniListe));
+gosterUyari("🗑️ Ürün silindi", "success");
+$id("silUrunAdi").value = "";
+urunleriYenile();
+}
+
+// Ürün güncelle
+function urunGuncelle() {
+const eski = $id("guncelleEski").value.trim();
+const yeni = $id("guncelleYeni").value.trim();
+const fiyat = $id("guncelleFiyat").value.trim();
+
+if (!eski || !yeni || !fiyat) {
+return gosterUyari("❗ Tüm alanları doldurun");
+}
+
+let urunler = JSON.parse(localStorage.getItem("urunler")) || [];
+let bulundu = false;
+
+urunler = urunler.map(u => {
+if (u.ad.toLowerCase() === eski.toLowerCase()) {
+bulundu = true;
+return { ad: yeni, fiyat };
+}
+return u;
+});
+
+if (!bulundu) {
+return gosterUyari("❌ Ürün bulunamadı");
+}
+
+localStorage.setItem("urunler", JSON.stringify(urunler));
+gosterUyari("✏️ Ürün güncellendi", "success");
+$id("guncelleEski").value = "";
+$id("guncelleYeni").value = "";
+$id("guncelleFiyat").value = "";
+urunleriYenile();
+}
+
+// ====== Kullanıcı Listeleme ======
+function kullanicilariGoster() {
+const ul = $id("kullaniciListesi");
+if (!ul) return;
+
+let arr = JSON.parse(localStorage.getItem("kullanicilar") || "[]");
+
+ul.innerHTML = "";
+if (arr.length === 0) {
+ul.innerHTML = "<li>📭 Kayıtlı kullanıcı yok.</li>";
+return;
+}
+
+arr.forEach((k, i) => {
+const li = document.createElement("li");
+li.innerHTML = `
+${i + 1}. ${k.kullaniciAdi || "(kullanıcı yok)"} (${k.email})
+<button onclick="kullaniciSil('${k.email}')">❌ Sil</button>
+`;
+ul.appendChild(li);
+});
+}
+
+function kullaniciSil(email) {
+let arr = JSON.parse(localStorage.getItem("kullanicilar")) || [];
+arr = arr.filter(k => k.email !== email);
+localStorage.setItem("kullanicilar", JSON.stringify(arr));
+gosterUyari("🗑️ Kullanıcı silindi", "success");
+kullanicilariGoster();
+}</script>
+
+
+<script>// ====== Şifre Sıfırlama ======
+function sifreYenileGonder() {
+  const email = $id("resetEmail").value.trim();
+  if (!email) return gosterUyari("❗ E-posta giriniz");
+
+  const kod = Math.floor(100000 + Math.random() * 900000);
+  localStorage.setItem("sifreSifirlamaKodu", kod);
+  localStorage.setItem("sifreSifirlamaEmail", email);
+
+  gosterUyari("📨 Kod e-postana gönderildi", "success");
+  closeModal("#resetPasswordModal");
+  openModal("sifreKodModal");
+}
+
+function koduKontrolEt() {
+  const girilen = $id("girilenKod").value.trim();
+  const dogru = localStorage.getItem("sifreSifirlamaKodu");
+
+  if (girilen !== dogru) return gosterUyari("❌ Kod yanlış");
+  gosterUyari("✅ Kod doğrulandı", "success");
+  closeModal("#sifreKodModal");
+  openModal("yeniSifreModal");
+}
+
+function yeniSifreKaydet() {
+  const yeni = $id("yeniSifre").value.trim();
+  const email = localStorage.getItem("sifreSifirlamaEmail");
+  if (!yeni) return gosterUyari("❗ Yeni şifre giriniz");
+
+  let list = JSON.parse(localStorage.getItem("kullanicilar") || "[]");
+  const idx = list.findIndex(u => u.email === email);
+
+  if (idx !== -1) {
+    list[idx].sifre = yeni;
+    localStorage.setItem("kullanicilar", JSON.stringify(list));
+  }
+  gosterUyari("🔑 Şifre güncellendi", "success");
+  closeModal("#yeniSifreModal");
+}
+
+// Geri Dön Fonksiyonu (Modal Navigasyonu)
+function geriDon() {
+  if ($id("sifreKodModal").style.display === "flex") {
+    closeModal("#sifreKodModal");
+    openModal("resetPasswordModal");
+  } else if ($id("resetPasswordModal").style.display === "flex") {
+    closeModal("#resetPasswordModal");
+    openModal("loginModal");
+  }
+}
+
+
+// ====== Sepet ======
+
+
+// ==== Ürün Ekle ====
+function sepeteEkle(urunAdi, fiyat) {
+  const mevcut = sepet.find(x => x.urunAdi === urunAdi);
+  if (mevcut) {
+    mevcut.adet++;
+  } else {
+    sepet.push({ urunAdi, fiyat, adet: 1 });
+  }
+  localStorage.setItem("sepet", JSON.stringify(sepet));
+  guncelleSepet();
+  gosterUyari(`${urunAdi} sepete eklendi ✅`, "success");
+}
+
+// ==== Sepeti Güncelle ====
+function guncelleSepet() {
+  const ul = document.getElementById("cartList");
+  const toplamEl = document.getElementById("toplamTutar");
+  if (!ul || !toplamEl) return;
+
+  ul.innerHTML = "";
+  let toplam = 0;
+
+  sepet.forEach((item, i) => {
+    const araToplam = item.fiyat * item.adet;
+    toplam += araToplam;
+
+    const li = document.createElement("li");
+    li.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;padding:6px;border-bottom:1px solid #444;">
+        <span>${item.urunAdi}</span>
+        <input type="number" min="1" value="${item.adet}" 
+               onchange="adetGuncelle(${i}, this.value)"
+               style="width:50px; text-align:center;" />
+        <span>₺${araToplam}</span>
+        <button onclick="urunSil(${i})" style="color:red; cursor:pointer;">❌</button>
+      </div>
+    `;
+    ul.appendChild(li);
+  });
+
+  toplamEl.textContent = "Toplam: ₺" + toplam;
+}
+
+// ==== Adet Güncelle ====
+function adetGuncelle(i, val) {
+  val = parseInt(val);
+  if (isNaN(val) || val < 1) val = 1;
+  sepet[i].adet = val;
+  localStorage.setItem("sepet", JSON.stringify(sepet));
+  guncelleSepet();
+}
+
+// ==== Ürün Sil ====
+function urunSil(i) {
+  sepet.splice(i, 1);
+  localStorage.setItem("sepet", JSON.stringify(sepet));
+  guncelleSepet();
+}
+
+// ==== Sepeti Boşalt ====
+function sepetiBosaltOnay() {
+  openModal("bosaltOnayModal");
+}
+function onaylaBosalt() {
+  sepet = [];
+  localStorage.removeItem("sepet");
+  guncelleSepet();
+  closeModal("#bosaltOnayModal");
+  gosterUyari("🗑️ Sepet boşaltıldı", "success");
+}
+
+// ==== Uyarı Kutusu ====
+function gosterUyari(msg, tip="error", sure=1500) {
+  const box = document.getElementById("uyariBox");
+  const txt = document.getElementById("uyariMetni");
+  if (!box || !txt) return alert(msg);
+
+  box.className = "uyari-box " + (tip === "success" ? "success" : "");
+  txt.textContent = msg;
   box.style.display = "block";
+  box.style.opacity = "1";
 
   setTimeout(() => {
     box.style.opacity = "0";
     setTimeout(() => {
       box.style.display = "none";
-      box.style.opacity = "1";
-      box.classList.remove("success");
-    }, 500);
-  }, 2500);
+      box.className = "uyari-box";
+    }, 400);
+  }, sure);
 }
 
-// ✅ EMAILJS BAŞLAT
-emailjs.init("8sUAD6FBekpFKIO0K");
+// Sayfa açılınca sepeti yükle
+document.addEventListener("DOMContentLoaded", guncelleSepet);
+// ====== Arama Sistemi ======
+function aramaYap() {
+  const q = $id("searchInput").value.toLowerCase();
+  const kategori = $id("kategoriSelect").value.toLowerCase();
+  const kartlar = document.querySelectorAll(".product-card");
 
-// ✅ KAYIT
-function kayitKontrol() {
-  const ad = document.getElementById("kayitAdSoyad").value.trim();
-  const email = document.getElementById("kayitEmail").value.trim();
-  const kullanici = document.getElementById("kayitKullanici").value.trim();
-  const sifre = document.getElementById("kayitSifre").value.trim();
+  let bulundu = false;
+  kartlar.forEach(card => {
+    const ad = card.querySelector("h3").textContent.toLowerCase();
+    let goster = true;
+    if (q && !ad.includes(q)) goster = false;
+    if (kategori && !ad.includes(kategori)) goster = false;
 
-  if (!ad || !email || !kullanici || !sifre) {
-    gosterUyari("❌ Lütfen tüm alanları doldurun!");
-    return;
-  }
-
-  const bilgiler = {
-    adSoyad: ad,
-    email,
-    kullaniciAdi: kullanici,
-    sifre,
-  };
-
-  localStorage.setItem("kullaniciBilgi", JSON.stringify(bilgiler));
-  document.getElementById("dogrulamaBtn").style.display = "inline-block";
-  gosterUyari("✅ Kayıt başarılı! Doğrulama yapınız.", "success");
-}
-
-// ✅ DOĞRULAMA GÖNDER
-function dogrulamaGonder() {
-  const email = document.getElementById("kayitEmail").value.trim();
-
-  if (!email) return gosterUyari("❌ Email alanı boş!");
-
-  gonderilenKod = Math.floor(100000 + Math.random() * 900000);
-  document.getElementById("dogrulamaKodu").value = gonderilenKod;
-
-  const params = {
-    to_email: email,
-    kod: gonderilenKod,
-  };
-
-  emailjs.send("service_pfhur4s", "template_hizliepinn", params)
-    .then(() => {
-      gosterUyari("📩 Kod e-posta ile gönderildi!", "success");
-    })
-    .catch((err) => {
-      console.error("Hata:", err);
-      gosterUyari("❌ Kod gönderilemedi.");
-    });
-}
-
-// ✅ GİRİŞ
-function girisKontrol() {
-  const kullanici = document.getElementById("girisEmail").value.trim();
-  const sifre = document.getElementById("girisSifre").value.trim();
-
-  if (!kullanici || !sifre) return gosterUyari("⚠️ Alanları doldurun!");
-
-  const kayitli = JSON.parse(localStorage.getItem("kullaniciBilgi"));
-
-  if (!kayitli) return gosterUyari("❌ Kayıtlı kullanıcı yok!");
-
-  const dogruMu = (kullanici === kayitli.kullaniciAdi || kullanici === kayitli.email) && sifre === kayitli.sifre;
-
-  if (dogruMu) {
-    localStorage.setItem("girisYapildi", "true");
-    document.getElementById("hesabimContainer").style.display = "block";
-    closeModal(document.querySelector("#loginModal .close-btn"));
-    gosterUyari("✅ Giriş başarılı!", "success");
-  } else {
-    gosterUyari("❌ Bilgiler yanlış!");
-  }
-}
-
-// ✅ ADMIN GİRİŞ
-function adminGirisYap() {
-  const kullanici = document.getElementById("adminKullanici").value.trim();
-  const sifre = document.getElementById("adminSifre").value.trim();
-
-  if (kullanici === "kral" && sifre === "12345") {
-    localStorage.setItem("adminGiris", "true");
-    document.getElementById("adminMenuContainer").style.display = "block";
-    closeModal(document.getElementById("adminGirisModal"));
-    gosterUyari("✅ Admin girişi başarılı!", "success");
-  } else {
-    gosterUyari("❌ Admin bilgileri yanlış!");
-  }
-}
-
-// ✅ ADMIN PANEL ERİŞİM KONTROLÜ
-function openAdminPanel() {
-  if (localStorage.getItem("adminGiris") === "true") {
-    openModal("adminPanelModal");
-  } else {
-    gosterUyari("❌ Önce admin girişi yapın!");
-  }
-}
-
-// ✅ ADMIN ÇIKIŞ
-function adminCikisYap() {
-  localStorage.removeItem("adminGiris");
-  document.getElementById("adminMenuContainer").style.display = "none";
-  gosterUyari("👋 Admin çıkış yaptı.");
-}
-
-// ✅ HESABIM ÇIKIŞ
-function kullaniciCikisYap() {
-  localStorage.removeItem("girisYapildi");
-  document.getElementById("hesabimContainer").style.display = "none";
-  gosterUyari("👋 Çıkış yapıldı.");
-}
-
-// ✅ ÜRÜN EKLE
-function urunEkle() {
-  const ad = document.getElementById("urunAdi").value.trim();
-  const fiyat = document.getElementById("urunFiyat").value.trim();
-
-  if (!ad || !fiyat) return gosterUyari("⚠️ Alanlar boş!");
-
-  let urunler = JSON.parse(localStorage.getItem("urunler")) || [];
-  urunler.push({ ad, fiyat: Number(fiyat) });
-  localStorage.setItem("urunler", JSON.stringify(urunler));
-
-  gosterUyari("✅ Ürün eklendi!", "success");
-  document.getElementById("urunAdi").value = "";
-  document.getElementById("urunFiyat").value = "";
-}
-
-// ✅ ÜRÜN SİL
-function urunSilAdmin() {
-  const ad = document.getElementById("silUrunAdi").value.trim();
-
-  if (!ad) return gosterUyari("⚠️ Ürün adı girin!");
-
-  let urunler = JSON.parse(localStorage.getItem("urunler")) || [];
-  const index = urunler.findIndex(u => u.ad.toLowerCase() === ad.toLowerCase());
-
-  if (index === -1) return gosterUyari("❌ Ürün bulunamadı!");
-
-  urunler.splice(index, 1);
-  localStorage.setItem("urunler", JSON.stringify(urunler));
-  gosterUyari("✅ Ürün silindi!", "success");
-  document.getElementById("silUrunAdi").value = "";
-}
-
-// ✅ ÜRÜN GÜNCELLE
-function urunGuncelle() {
-  const eski = document.getElementById("guncelleEski").value.trim();
-  const yeni = document.getElementById("guncelleYeni").value.trim();
-  const fiyat = document.getElementById("guncelleFiyat").value.trim();
-
-  if (!eski || !yeni || !fiyat) return gosterUyari("⚠️ Alanlar boş!");
-
-  let urunler = JSON.parse(localStorage.getItem("urunler")) || [];
-  const index = urunler.findIndex(u => u.ad.toLowerCase() === eski.toLowerCase());
-
-  if (index === -1) return gosterUyari("❌ Ürün yok!");
-
-  urunler[index] = { ad: yeni, fiyat: Number(fiyat) };
-  localStorage.setItem("urunler", JSON.stringify(urunler));
-  gosterUyari("✏️ Ürün güncellendi!", "success");
-
-document.getElementById("guncelleEski").value = "";
-  document.getElementById("guncelleYeni").value = "";
-  document.getElementById("guncelleFiyat").value = "";
-}
-
-// ✅ SEPET
-function sepeteEkle(ad, fiyat) {
-  sepet.push({ ad, fiyat });
-  localStorage.setItem("sepet", JSON.stringify(sepet));
-  gosterUyari(`${ad} sepete eklendi.`, "success");
-  guncelleSepet();
-}
-function urunSil(index) {
-  sepet.splice(index, 1);
-  localStorage.setItem("sepet", JSON.stringify(sepet));
-  guncelleSepet();
-}
-function sepetiBosalt() {
-  sepet = [];
-  localStorage.removeItem("sepet");
-  guncelleSepet();
-  gosterUyari("Sepet boşaltıldı.");
-}
-function guncelleSepet() {
-  const liste = document.getElementById("cartList");
-  const toplam = document.getElementById("toplamTutar");
-  liste.innerHTML = "";
-  let tutar = 0;
-
-  sepet.forEach((item, i) => {
-    const li = document.createElement("li");
-    li.innerHTML = `
-      <div style="display:flex; justify-content:space-between;">
-        <span>${item.ad} - ₺${item.fiyat}</span>
-        <button onclick="urunSil(${i})" style="border:1px solid red;">×</button>
-      </div>`;
-    liste.appendChild(li);
-    tutar += item.fiyat;
+    if (goster) {
+      card.style.display = "block";
+      bulundu = true;
+    } else {
+      card.style.display = "none";
+    }
   });
-  toplam.textContent = `Toplam: ₺${tutar}`;
+
+  if (!bulundu) gosterUyari("❌ Sonuç bulunamadı", "error");
 }
 
-// ✅ HESABIM / ADMIN MENÜ AÇ/KAPA
-function toggleAdminMenu() {
-  const menu = document.getElementById("adminMenuDropdown");
-  menu.style.display = menu.style.display === "block" ? "none" : "block";
+// Enter tuşu arama
+$id("searchInput").addEventListener("keyup", e => {
+  if (e.key === "Enter") aramaYap();
+});</script>
+<script>function emailKontrolEt() {
+const emailInput = document.getElementById("kayitEmail");
+const uyari = document.getElementById("emailUyari");
+const email = emailInput.value.trim();
+
+// ✅ Genel e-posta regex (gmail, hotmail, outlook, yahoo vs. geçerli olur)
+const regex = /^[a-zA-Z0-9._%+-]+@(gmail|hotmail|outlook|yahoo)\.(com|com\.tr)$/i;
+
+if (!email) {
+uyari.style.display = "none"; // boşken uyarı çıkmasın
+return;
 }
-function toggleHesabimMenu() {
-  const menu = document.getElementById("hesabimDropdown");
-  menu.style.display = menu.style.display === "block" ? "none" : "block";
+
+if (!regex.test(email)) {
+uyari.style.display = "block";
+emailInput.style.border = "1px solid #ff4444"; // kırmızı kenarlık
+} else {
+uyari.style.display = "none";
+emailInput.style.border = "1px solid #00cc66"; // yeşil kenarlık (geçerli)
 }
+}
+</script>
+<script>function validatePassword() {
+const sifre = document.getElementById("kayitSifre").value;
+const kurallar = document.getElementById("sifreKurallari");
 
-// ✅ SAYFA YÜKLENİNCE
-window.addEventListener("load", () => {
-  sepet = JSON.parse(localStorage.getItem("sepet")) || [];
-  guncelleSepet();
+// Şifre şartlarını kontrol et
+const uzunluk = sifre.length >= 8;
+const buyuk = /[A-Z]/.test(sifre);
+const kucuk = /[a-z]/.test(sifre);
+const rakam = /\d/.test(sifre);
+const ozel = /[!@#$%^&*.]/.test(sifre);
 
-  if (localStorage.getItem("adminGiris") === "true") {
-    document.getElementById("adminMenuContainer").style.display = "block";
-  }
-
-  if (localStorage.getItem("girisYapildi") === "true") {
-    document.getElementById("hesabimContainer").style.display = "block";
-  }
+if (uzunluk && buyuk && kucuk && rakam && ozel) {
+kurallar.style.color = "#4caf50"; // yeşil
+kurallar.textContent = "✅ Şifre geçerli";
+} else {
+kurallar.style.color = "#ff6666"; // kırmızı
+kurallar.textContent = "❌ En az 8 karakter, 1 büyük, 1 küçük, 1 rakam, 1 özel (!@#$%^&*.)";
+}
+}</script>
+  <script>document.querySelectorAll("a[href='index.html']").forEach(link => {
+link.addEventListener("click", function(e) {
+if (window.location.pathname.endsWith("index.html") || window.location.pathname === "/") {
+e.preventDefault(); // aynı sayfadaysa yenileme yapma
+}
 });
-
-</script>
-  <!-- EmailJS CDN -->
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-<script>
-  window.onload = function() {
-    emailjs.init("8sUAD6FBekpFKIO0K");
-  };
-</script>
-
+});</script>
 </body>
 </html>
-
-                          
