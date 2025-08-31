@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hakkımızda | EPIN</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #121212;
+      color: #fff;
+      line-height: 1.6;
+    }
+    .navbar {
+      background: #1e1e1e;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .navbar .logo {
+      font-size: 22px;
+      font-weight: bold;
+      color: #4fa3ff;
+    }
+    .nav-right {
+      display: flex;
+      gap: 10px;
+    }
+    .auth-btn {
+      background: #fff;
+      color: #000;
+      font-weight: bold;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+      text-decoration: none;
+    }
+    .auth-btn:hover {
+      background: #4fa3ff;
+      color: #fff;
+    }
+    .auth-btn.active {
+      background: #4fa3ff;
+      color: #fff;
+    }
+
+    /* Header */
+    .hakkimizda-header {
+      text-align: center;
+      padding: 40px 20px 20px;
+      background: #191919;
+    }
+    .hakkimizda-header h1 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+    .header-line {
+      width: 60px;
+      height: 3px;
+      background: #4fa3ff;
+      margin: 0 auto 20px;
+      border-radius: 3px;
+    }
+    .hakkimizda-banner {
+      width: 100%;
+      max-width: 600px;
+      border-radius: 10px;
+      margin: 10px auto;
+      display: block;
+    }
+
+    /* İçerik */
+    .hakkimizda-content,
+    .hakkimizda-section {
+      padding: 25px 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .hakkimizda-content h2,
+    .hakkimizda-section h3 {
+      color: #4fa3ff;
+      margin-bottom: 10px;
+    }
+    .hakkimizda-section h3 {
+      font-size: 20px;
+      margin-top: 20px;
+    }
+
+    /* İkon kutuları */
+    .hakkimizda-icons {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(150px,1fr));
+      gap: 15px;
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+    .icon-box {
+      background: #1e1e1e;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      border: 1px solid #4fa3ff;
+      font-weight: bold;
+    }
+
+    /* Footer */
+    .footer {
+      background: #1a1a1a;
+      color: #ccc;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+    .footer a {
+      color: #4fa3ff;
+      text-decoration: none;
+      margin: 0 5px;
+    }
+    .footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="logo">EPIN</div>
+    <div class="nav-right">
+      <a href="index.html" class="auth-btn">🏠 Ana Sayfa</a>
+      <a href="hakkimizda.html" class="auth-btn active">📖 Hakkımızda</a>
+      <a href="sss.html" class="auth-btn">❓ S.S.S</a>
+      <a href="iletisim.html" class="auth-btn">📞 İletişim</a>
+    </div>
+  </div>
+
+  <!-- Başlık -->
+  <header class="hakkimizda-header">
+    <h1>Hakkımızda | EPIN - Uygun Fiyatlı Oyun Mağazası</h1>
+    <div class="header-line"></div>
+
+
+  <!-- İçerik -->
+  <section class="hakkimizda-content">
+    <h2>EPIN – Türkiye’nin En Uygun ve Güvenilir Dijital Oyun Mağazası</h2>
+    <p>
+      EPIN, 2025 yılında kurulmuş olup oyunculara <strong>hızlı, güvenli ve uygun fiyatlı</strong> dijital ürünler sunmayı hedefler.  
+      Çeşitli oyun kodları, hediye kartları ve epin ürünleri ile geniş bir kitleye hizmet veriyoruz.
+    </p>
+  </section>
+
+  <section class="hakkimizda-section">
+    <h3>📜 Tarihimiz</h3>
+    <p>
+      Kurulduğumuz günden bu yana, oyuncuların güvenini kazanarak binlerce başarılı alışverişe imza attık.  
+      Amacımız, her geçen gün hizmet kalitemizi artırarak daha fazla oyunsevere ulaşmaktır.
+    </p>
+  </section>
+
+  <section class="hakkimizda-section">
+    <h3>👥 Biz Kimiz?</h3>
+    <p>
+      Genç ve dinamik bir ekibiz.  
+      Oyuncular için sadece ürün satan bir mağaza değil, aynı zamanda <strong>güvenilir bir dost</strong> olmayı amaçlıyoruz.  
+      7/24 aktif müşteri desteği ve hızlı teslimat sistemimiz ile yanınızdayız.
+    </p>
+  </section>
+
+  <!-- Özellikler -->
+  <section class="hakkimizda-icons">
+    <div class="icon-box">😊 Memnuniyet</div>
+    <div class="icon-box">⚡ Hızlı Teslimat</div>
+    <div class="icon-box">💳 Güvenli Alışveriş</div>
+    <div class="icon-box">💲 Uygun Fiyatlar</div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2025 EPIN - Tüm Hakları Saklıdır</p>
+    <a href="index.html">🏠 Ana Sayfa</a> |
+    <a href="hakkimizda.html">📖 Hakkımızda</a> |
+    <a href="sss.html">❓ S.S.S</a> |
+    <a href="iletisim.html">📞 İletişim</a>
+  </footer>
+</body>
+</html>

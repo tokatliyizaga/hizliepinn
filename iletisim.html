@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>İletişim | EPIN</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #121212;
+      color: #fff;
+    }
+
+    header {
+      background: #1e1e1e;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header .logo {
+      font-size: 22px;
+      font-weight: bold;
+      color: #4fa3ff;
+    }
+    header nav a {
+      margin-left: 15px;
+      text-decoration: none;
+      color: #ccc;
+      font-weight: 500;
+    }
+    header nav a:hover {
+      color: #fff;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #1e1e1e;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #4fa3ff;
+    }
+
+    .info-box {
+      margin-bottom: 25px;
+      background: #222;
+      padding: 15px;
+      border-radius: 8px;
+    }
+    .info-box p {
+      margin: 6px 0;
+    }
+    .info-box strong {
+      color: #4fa3ff;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    form label {
+      margin-top: 10px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    form input, form textarea {
+      margin-top: 5px;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      background: #2a2a2a;
+      color: #fff;
+    }
+    form textarea {
+      resize: none;
+      min-height: 120px;
+    }
+    form button {
+      margin-top: 20px;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: #4fa3ff;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    form button:hover {
+      background: #0077cc;
+    }
+
+    footer {
+      margin-top: 40px;
+      padding: 20px;
+      text-align: center;
+      background: #1e1e1e;
+      font-size: 14px;
+      color: #ccc;
+    }
+    footer a {
+      color: #4fa3ff;
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">EPIN</div>
+    <nav>
+      <a href="index.html">Ana Sayfa</a>
+      <a href="hakkimizda.html">Hakkımızda</a>
+      <a href="iletisim.html">İletişim</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <h1>Bizimle İletişime Geçin</h1>
+
+    <div class="info-box">
+      <p><strong>📧 E-posta:</strong> destek@epin.com</p>
+      <p><strong>📞 Telefon:</strong> +90 555 123 45 67</p>
+      <p><strong>⏰ Çalışma Saatleri:</strong> 09:00 - 23:00 (Her Gün)</p>
+      <p><strong>📍 Adres:</strong> İstanbul, Türkiye</p>
+    </div>
+
+    <form>
+      <label for="ad">Adınız *</label>
+      <input type="text" id="ad" placeholder="Adınızı giriniz" required>
+
+      <label for="email">E-posta *</label>
+      <input type="email" id="email" placeholder="E-posta adresiniz" required>
+
+      <label for="mesaj">Mesajınız *</label>
+      <textarea id="mesaj" placeholder="Mesajınızı buraya yazınız" required></textarea>
+
+      <button type="submit">Gönder</button>
+    </form>
+  </div>
+
+  <footer>
+    <p>© 2025 EPIN | <a href="index.html">Ana Sayfa</a></p>
+  </footer>
+</body>
+</html>
